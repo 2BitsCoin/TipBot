@@ -371,7 +371,7 @@ function getValidatedAmount(amount) {
 }
 
 function txLink(txId) {
-  return 'https://ardor.tools/tx/' + txId;
+  return 'https://heatnodes.org/?page_id=705/tx/' + txId;
 }
 
 function addyLink(address) {
