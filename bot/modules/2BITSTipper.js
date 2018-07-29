@@ -13,7 +13,7 @@ exports.commands = ['tipufo'];
 exports.tipufo = {
   usage: '<subcommand>',
   description:
-    '__**Uniform Fiscal Object (UFO) Tipper**__\nTransaction Fees: **' + paytxfee + '**\n    **!tipufo** : Displays This Message\n    **!tipufo balance** : get your balance\n    **!tipufo deposit** : get address for your deposits\n    **!tipufo withdraw <ADDRESS> <AMOUNT>** : withdraw coins to specified address\n    **!tipufo <@user> <amount>** :mention a user with @ and then the amount to tip them\n    **!tipufo private <user> <amount>** : put private before Mentioning a user to tip them privately.\n\n    has a default txfee of ' + paytxfee,
+    '__**Uniform Fiscal Object (2BITS) Tipper**__\nTransaction Fees: **' + paytxfee + '**\n    **!tipufo** : Displays This Message\n    **!tipufo balance** : get your balance\n    **!tipufo deposit** : get address for your deposits\n    **!tipufo withdraw <ADDRESS> <AMOUNT>** : withdraw coins to specified address\n    **!tipufo <@user> <amount>** :mention a user with @ and then the amount to tip them\n    **!tipufo private <user> <amount>** : put private before Mentioning a user to tip them privately.\n\n    has a default txfee of ' + paytxfee,
   process: async function(bot, msg, suffix) {
     let tipper = msg.author.id.replace('!', ''),
       words = msg.content
@@ -24,7 +24,7 @@ exports.tipufo = {
         }),
       subcommand = words.length >= 2 ? words[1] : 'help',
       helpmsg =
-        '__**Uniform Fiscal Object (UFO) Tipper**__\nTransaction Fees: **' + paytxfee + '**\n    **!tipufo** : Displays This Message\n    **!tipufo balance** : get your balance\n    **!tipufo deposit** : get address for your deposits\n    **!tipufo withdraw <ADDRESS> <AMOUNT>** : withdraw coins to specified address\n    **!tipufo <@user> <amount>** :mention a user with @ and then the amount to tip them\n    **!tipufo private <user> <amount>** : put private before Mentioning a user to tip them privately.\n\n    **<> : Replace with appropriate value.**',
+        '__**Uniform Fiscal Object (2BITS) Tipper**__\nTransaction Fees: **' + paytxfee + '**\n    **!tipufo** : Displays This Message\n    **!tipufo balance** : get your balance\n    **!tipufo deposit** : get address for your deposits\n    **!tipufo withdraw <ADDRESS> <AMOUNT>** : withdraw coins to specified address\n    **!tipufo <@user> <amount>** :mention a user with @ and then the amount to tip them\n    **!tipufo private <user> <amount>** : put private before Mentioning a user to tip them privately.\n\n    **<> : Replace with appropriate value.**',
       channelwarning = 'Please use <#bot-spam> or DMs to talk to bots.';
     switch (subcommand) {
       case 'help':
@@ -60,10 +60,10 @@ function doHelp(message, helpmsg) {
 function doBalance(message, tipper) {
   ufo.getBalance(tipper, 1, function(err, balance) {
     if (err) {
-      message.reply('Error getting Uniform Fiscal Object (UFO) balance.').then(message => message.delete(10000));
+      message.reply('Error getting Uniform Fiscal Object (2BITS) balance.').then(message => message.delete(10000));
     } else {
     message.channel.send({ embed: {
-    description: '**:bank::money_with_wings::moneybag:Uniform Fiscal Object (UFO) Balance!:moneybag::money_with_wings::bank:**',
+    description: '**:bank::money_with_wings::moneybag:Uniform Fiscal Object (2BITS) Balance!:moneybag::money_with_wings::bank:**',
     color: 1363892,
     fields: [
       {
@@ -85,10 +85,10 @@ function doBalance(message, tipper) {
 function doDeposit(message, tipper) {
   getAddress(tipper, function(err, address) {
     if (err) {
-      message.reply('Error getting your Uniform Fiscal Object (UFO) deposit address.').then(message => message.delete(10000));
+      message.reply('Error getting your Uniform Fiscal Object (2BITS) deposit address.').then(message => message.delete(10000));
     } else {
     message.channel.send({ embed: {
-    description: '**:bank::card_index::moneybag:Uniform Fiscal Object (UFO) Address!:moneybag::card_index::bank:**',
+    description: '**:bank::card_index::moneybag:Uniform Fiscal Object (2BITS) Address!:moneybag::card_index::bank:**',
     color: 1363892,
     fields: [
       {
@@ -117,16 +117,16 @@ function doWithdraw(message, tipper, words, helpmsg) {
     amount = getValidatedAmount(words[3]);
 
   if (amount === null) {
-    message.reply("I don't know how to withdraw that much Uniform Fiscal Object (UFO)...").then(message => message.delete(10000));
+    message.reply("I don't know how to withdraw that much Uniform Fiscal Object (2BITS)...").then(message => message.delete(10000));
     return;
   }
 
   ufo.getBalance(tipper, 1, function(err, balance) {
     if (err) {
-      message.reply('Error getting Uniform Fiscal Object (UFO) balance.').then(message => message.delete(10000));
+      message.reply('Error getting Uniform Fiscal Object (2BITS) balance.').then(message => message.delete(10000));
     } else {
       if (Number(amount) + Number(paytxfee) > Number(balance)) {
-        message.channel.send('Please leave atleast ' + paytxfee + ' Uniform Fiscal Object (UFO) for transaction fees!');
+        message.channel.send('Please leave atleast ' + paytxfee + ' Uniform Fiscal Object (2BITS) for transaction fees!');
         return;
       }
       ufo.sendFrom(tipper, address, Number(amount), function(err, txId) {
@@ -134,7 +134,7 @@ function doWithdraw(message, tipper, words, helpmsg) {
           message.reply(err.message).then(message => message.delete(10000));
         } else {
         message.channel.send({embed:{
-        description: '**:outbox_tray::money_with_wings::moneybag:Uniform Fiscal Object (UFO) Transaction Completed!:moneybag::money_with_wings::outbox_tray:**',
+        description: '**:outbox_tray::money_with_wings::moneybag:Uniform Fiscal Object (2BITS) Transaction Completed!:moneybag::money_with_wings::outbox_tray:**',
         color: 1363892,
         fields: [
           {
@@ -185,16 +185,16 @@ function doTip(bot, message, tipper, words, helpmsg) {
   let amount = getValidatedAmount(words[amountOffset]);
 
   if (amount === null) {
-    message.reply("I don't know how to tip that much Uniform Fiscal Object (UFO)...").then(message => message.delete(10000));
+    message.reply("I don't know how to tip that much Uniform Fiscal Object (2BITS)...").then(message => message.delete(10000));
     return;
   }
 
   ufo.getBalance(tipper, 1, function(err, balance) {
     if (err) {
-      message.reply('Error getting Uniform Fiscal Object (UFO) balance.').then(message => message.delete(10000));
+      message.reply('Error getting Uniform Fiscal Object (2BITS) balance.').then(message => message.delete(10000));
     } else {
       if (Number(amount) + Number(paytxfee) > Number(balance)) {
-        message.channel.send('Please leave atleast ' + paytxfee + ' Uniform Fiscal Object (UFO) for transaction fees!');
+        message.channel.send('Please leave atleast ' + paytxfee + ' Uniform Fiscal Object (2BITS) for transaction fees!');
         return;
       }
 
@@ -205,7 +205,7 @@ function doTip(bot, message, tipper, words, helpmsg) {
             return;
           }
       if (message.mentions.users.first().id) {
-        sendUFO(bot, message, tipper, message.mentions.users.first().id.replace('!', ''), amount, prv);
+        send2BITS(bot, message, tipper, message.mentions.users.first().id.replace('!', ''), amount, prv);
       } else {
         message.reply('Sorry, I could not find a user in your tip...').then(message => message.delete(10000));
       }
@@ -213,7 +213,7 @@ function doTip(bot, message, tipper, words, helpmsg) {
   });
 }
 
-function sendUFO(bot, message, tipper, recipient, amount, privacyFlag) {
+function send2BITS(bot, message, tipper, recipient, amount, privacyFlag) {
   getAddress(recipient.toString(), function(err, address) {
     if (err) {
       message.reply(err.message).then(message => message.delete(10000));
@@ -225,7 +225,7 @@ function sendUFO(bot, message, tipper, recipient, amount, privacyFlag) {
                 if (privacyFlag) {
                   let userProfile = message.guild.members.find('id', recipient);
                   userProfile.user.send({ embed: {
-                  description: '**:money_with_wings::moneybag:Uniform Fiscal Object (UFO) Transaction Completed!:moneybag::money_with_wings:**',
+                  description: '**:money_with_wings::moneybag:Uniform Fiscal Object (2BITS) Transaction Completed!:moneybag::money_with_wings:**',
                   color: 1363892,
                   fields: [
                     {
@@ -256,7 +256,7 @@ function sendUFO(bot, message, tipper, recipient, amount, privacyFlag) {
                   ]
                 } });
                 message.author.send({ embed: {
-                description: '**:money_with_wings::moneybag:Uniform Fiscal Object (UFO) Transaction Completed!:moneybag::money_with_wings:**',
+                description: '**:money_with_wings::moneybag:Uniform Fiscal Object (2BITS) Transaction Completed!:moneybag::money_with_wings:**',
                 color: 1363892,
                 fields: [
                   {
@@ -294,7 +294,7 @@ function sendUFO(bot, message, tipper, recipient, amount, privacyFlag) {
                   }
                 } else {
                   message.channel.send({ embed: {
-                  description: '**:money_with_wings::moneybag:Uniform Fiscal Object (UFO) Transaction Completed!:moneybag::money_with_wings:**',
+                  description: '**:money_with_wings::moneybag:Uniform Fiscal Object (2BITS) Transaction Completed!:moneybag::money_with_wings:**',
                   color: 1363892,
                   fields: [
                     {
@@ -371,9 +371,9 @@ function getValidatedAmount(amount) {
 }
 
 function txLink(txId) {
-  return 'https://chainz.cryptoid.info/ufo/tx.dws?' + txId;
+  return 'https://ardor.tools/tx/' + txId;
 }
 
 function addyLink(address) {
-  return 'https://chainz.cryptoid.info/ufo/address.dws?' + address;
+  return 'https://ardor.tools/address/' + address;
 }
