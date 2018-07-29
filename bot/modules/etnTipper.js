@@ -371,9 +371,9 @@ function getValidatedAmount(amount) {
 }
 
 function txLink(txId) {
-  return 'https://explorer.vertical.ovh/#/tx/' + txId;
+  return 'https://blockexplorer.electroneum.com/tx/' + txId;
 }
 
 function addyLink(address) {
-  return 'https://explorer.vertical.ovh/#/address/' + address;
+  return 'https://blockexplorer.electroneum.com/address/' + address;
 }
